@@ -47,7 +47,7 @@ public class ProductController {
 		}
 	}
 	
-//	update with put
+//	update a product
 	@PutMapping("/product/{id}")
 	public ResponseEntity<?> putById(@PathVariable("id") Long id, @RequestBody ProductDTO productNew){
 		Optional<ProductDTO> productOptional = productRepository.findById(id);
@@ -62,7 +62,16 @@ public class ProductController {
 		}
 	}
 	
-
+//	delete a product
+	@DeleteMapping("/product/{id}")
+	public ResponseEntity<?> deleteById(@PathVariable("id") Long id){
+		try {
+			productRepository.deleteById(id);
+			return new ResponseEntity<>("Product with id "+ id + " successfully deleted!", HttpStatus.OK);
+		}catch (Exception e){
+			return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+		}
+	}
 }
 
 
