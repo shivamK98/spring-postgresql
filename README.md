@@ -30,7 +30,7 @@ mvn package
 using java-jar command :
 
 ```bash
-java -jar target/springMongo-0.0.1-SNAPSHOT.jar
+java -jar target/spring-postgresql-0.0.1-SNAPSHOT.jar
 ```
 
 Alternatively, you can run the app without packaging it using Maven Plugin :
