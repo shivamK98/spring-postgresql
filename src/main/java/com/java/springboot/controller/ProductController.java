@@ -3,6 +3,8 @@ package com.java.springboot.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,18 +29,21 @@ public class ProductController {
 //	get products
 	@GetMapping("/product")
 	public List<ProductDTO> getAllProducts(){
+		
 		return this.productRepository.findAll();
 	}
 	
 //	post products
 	@PostMapping("/product")
-	public ProductDTO createProduct(@RequestBody ProductDTO product){
+	public ProductDTO createProduct(@Valid @RequestBody ProductDTO product){
+		
 		return this.productRepository.save(product);
 	}
 	
 //	get product by id
 	@GetMapping("/product/{id}")
 	public ResponseEntity<?> getSingleProduct(@PathVariable("id") Long id){
+		
 		Optional<ProductDTO> productOptional = productRepository.findById(id);
 		if(productOptional.isPresent()) {
 			return new ResponseEntity<>(productOptional.get(), HttpStatus.OK);
@@ -49,7 +54,8 @@ public class ProductController {
 	
 //	update a product
 	@PutMapping("/product/{id}")
-	public ResponseEntity<?> putById(@PathVariable("id") Long id, @RequestBody ProductDTO productNew){
+	public ResponseEntity<?> putById(@PathVariable("id") Long id, @Valid @RequestBody ProductDTO productNew){
+		
 		Optional<ProductDTO> productOptional = productRepository.findById(id);
 		if(productOptional.isPresent()) {
 			ProductDTO productSave = productOptional.get();
@@ -65,6 +71,7 @@ public class ProductController {
 //	delete a product
 	@DeleteMapping("/product/{id}")
 	public ResponseEntity<?> deleteById(@PathVariable("id") Long id){
+		
 		try {
 			productRepository.deleteById(id);
 			return new ResponseEntity<>("Product with id "+ id + " successfully deleted!", HttpStatus.OK);
