@@ -3,6 +3,7 @@ package com.java.springboot.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.java.springboot.repository.ProductRepository;
+import com.java.springboot.service.ProductService;
+import com.java.springboot.exception.ProductExistException;
 import com.java.springboot.model.ProductDTO;
 
 
@@ -25,6 +28,9 @@ public class ProductController {
 	
 	@Autowired
 	private ProductRepository productRepository;
+	
+	@Autowired
+	private ProductService productService;
 	
 //	get products
 	@GetMapping("/product")
@@ -35,9 +41,15 @@ public class ProductController {
 	
 //	post products
 	@PostMapping("/product")
-	public ProductDTO createProduct(@Valid @RequestBody ProductDTO product){
-		
-		return this.productRepository.save(product);
+	public ResponseEntity<?> createProduct(@Valid @RequestBody ProductDTO product){
+		try {
+			productService.createProduct(product);
+			return new ResponseEntity<ProductDTO> (product, HttpStatus.OK);
+		}catch (ConstraintViolationException e) {
+			return new ResponseEntity<> (e.getMessage(), HttpStatus.UNPROCESSABLE_ENTITY);
+		}catch (ProductExistException e) {
+			return new ResponseEntity<> (e.getMessage(), HttpStatus.CONFLICT);
+		}
 	}
 	
 //	get product by id
@@ -59,6 +71,8 @@ public class ProductController {
 		Optional<ProductDTO> productOptional = productRepository.findById(id);
 		if(productOptional.isPresent()) {
 			ProductDTO productSave = productOptional.get();
+			
+//			If some field is not provided then use old value
 			productSave.setProductName(productNew.getProductName() == null ? productSave.getProductName() : productNew.getProductName());
 			productSave.setPrice(productNew.getPrice() == 0 ? productSave.getPrice() : productNew.getPrice());
 			productRepository.save(productSave);
