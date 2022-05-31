@@ -9,9 +9,9 @@ All CRUD operations implemented which can be accessed using HTTP methods like GE
 * PostgreSQL
 * Hibernate
 * JPA
-* Maven 4.0.0
-* Spring Tool Suite(STS) 4
-* Java 17
+* Gradle 7.4.2
+* IntelliJ Idea
+* Java 8
 
 ## Step to install
 
