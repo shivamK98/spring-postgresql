@@ -24,19 +24,19 @@ git clone https://github.com/shivamK98/spring-postgresql.git
 2. **Build and run the backend app**
 
 ```bash
-mvn package
+gradle build
 ```
 
 using java-jar command :
 
 ```bash
-java -jar target/spring-postgresql-0.0.1-SNAPSHOT.jar
+java -jar .\build\libs\spring-postgresql-1.0.0.jar
 ```
 
-Alternatively, you can run the app without packaging it using Maven Plugin :
+Alternatively, you can run the app without packaging it using Gradle Plugin :
 
 ```bash
-mvn spring-boot:run
+gradle bootRun
 ```
 
 The backend server will start at <http://localhost:8080>.
