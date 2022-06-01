@@ -20,17 +20,22 @@ All CRUD operations implemented which can be accessed using HTTP methods like GE
 ```bash
 git clone https://github.com/shivamK98/spring-postgresql.git
 ```
+2. **Goto spring-postgresql directory**
+```bash
+cd spring-postgresql/
+```
 
-2. **Build and run the backend app**
+3. **Build and run the backend app**
 
 ```bash
-gradle build
+gradle build --no-daemon
+
 ```
 
 using java-jar command :
 
 ```bash
-java -jar .\build\libs\spring-postgresql-1.0.0.jar
+java -jar ./build/libs/spring-postgresql-0.0.1-SNAPSHOT.jar
 ```
 
 Alternatively, you can run the app without packaging it using Gradle Plugin :
