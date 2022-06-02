@@ -16,7 +16,8 @@ public class ProductServiceImplement implements ProductService {
 	
 	@Autowired
 	private ProductRepository productRepository;
-	
+
+//	throw error if product name is same else save
 	@Override
 	public void createProduct(ProductDTO product) throws ProductExistException, ConstraintViolationException {
 		
