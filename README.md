@@ -29,7 +29,6 @@ cd spring-postgresql/
 
 ```bash
 gradle build --no-daemon
-
 ```
 
 using java-jar command :

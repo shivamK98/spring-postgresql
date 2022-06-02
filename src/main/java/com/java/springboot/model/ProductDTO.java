@@ -23,7 +23,7 @@ public class ProductDTO {
 	private String productName;
 	
 	
-	@Column(name = "prie")
+	@Column(name = "price")
 	private double price;
 	
 	public ProductDTO() {
