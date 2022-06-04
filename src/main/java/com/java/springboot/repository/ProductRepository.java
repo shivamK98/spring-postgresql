@@ -14,3 +14,5 @@ public interface ProductRepository extends JpaRepository<ProductDTO, Long> {
 	@Query(value = "SELECT p FROM ProductDTO p WHERE p.productName = ?1")
 	Optional<ProductDTO> findByProductName(String productName);
 }
+
+
