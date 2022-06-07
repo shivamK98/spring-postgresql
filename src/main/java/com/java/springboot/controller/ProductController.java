@@ -31,15 +31,13 @@ public class ProductController {
 	
 	@Autowired
 	private ProductService productService;
-	
-//	get products
+
 	@GetMapping("/product")
 	public List<ProductDTO> getAllProducts(){
 		
 		return this.productRepository.findAll();
 	}
-	
-//	post products
+
 	@PostMapping("/product")
 	public ResponseEntity<?> createProduct(@Valid @RequestBody ProductDTO product){
 		try {
@@ -51,8 +49,7 @@ public class ProductController {
 			return new ResponseEntity<> (e.getMessage(), HttpStatus.CONFLICT);
 		}
 	}
-	
-//	get product by id
+
 	@GetMapping("/product/{id}")
 	public ResponseEntity<?> getSingleProduct(@PathVariable("id") Long id){
 		
@@ -63,16 +60,13 @@ public class ProductController {
 			return new ResponseEntity<>("Product not found with id " + id, HttpStatus.NOT_FOUND);					
 		}
 	}
-	
-//	update a product
+
 	@PutMapping("/product/{id}")
 	public ResponseEntity<?> putById(@PathVariable("id") Long id, @Valid @RequestBody ProductDTO productNew){
 		
 		Optional<ProductDTO> productOptional = productRepository.findById(id);
 		if(productOptional.isPresent()) {
 			ProductDTO productSave = productOptional.get();
-			
-//			If some field is not provided then use old value
 			productSave.setProductName(productNew.getProductName() == null ? productSave.getProductName() : productNew.getProductName());
 			productSave.setPrice(productNew.getPrice() == 0 ? productSave.getPrice() : productNew.getPrice());
 			productRepository.save(productSave);
@@ -81,8 +75,7 @@ public class ProductController {
 			return new ResponseEntity<>("Product not found with id " + id, HttpStatus.NOT_FOUND);
 		}
 	}
-	
-//	delete a product
+
 	@DeleteMapping("/product/{id}")
 	public ResponseEntity<?> deleteById(@PathVariable("id") Long id){
 		
